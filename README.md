@@ -6,7 +6,7 @@ Level based logger implementation in C++
 2. `cd SimpleLogger`
 3. `cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake`
 4. `cmake --build ./build`
-4. `./build/tests/SimpleLogger`
+4. `./build/tests/LoggerTest`
 
 ### Usage
 ```

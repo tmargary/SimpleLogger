@@ -1,34 +1,23 @@
 #include <iostream>
 #include <limits.h>
-#include <nlohmann/json.hpp>
+#include <unistd.h>
 #include <filesystem>
+namespace fs = std::filesystem;
 
 #ifdef _WIN32
 #include <direct.h>
-#include <windows.h>
 #define getcwd _getcwd
-#else
-#include <unistd.h>
-#include <libgen.h>
 #endif
 
-namespace fs = std::filesystem;
-
+#include <nlohmann/json.hpp>
 #include <Logger/Logger.h>
 #include <utils/utils.h>
 
 std::string get_cwd()
 {
   char path[PATH_MAX];
-  if (getcwd(path, sizeof(path)) != NULL)
-  {
-    char *dir = dirname(path);
-    return dir;
-  }
-  else
-  {
-    return "";
-  }
+  char *dir = getcwd(path, sizeof(path));
+  return dir;
 }
 
 LogLevel get_level(const std::string &config_path)

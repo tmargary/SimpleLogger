@@ -9,12 +9,11 @@ namespace fs = std::filesystem;
 #include <Logger/Logger.h>
 #include <utils/utils.h>
 
+
 std::string get_cwd()
 {
-  char path[PATH_MAX];
-  strncpy(path, __FILE__, sizeof(path));
-  char *dir = dirname(path);
-  return dir;
+  auto path = fs::path(__FILE__).parent_path();
+  return path.string();
 }
 
 LogLevel get_level(const std::string &config_path)

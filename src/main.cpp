@@ -2,11 +2,12 @@
 #include <limits.h>
 #include <libgen.h>
 #include <unistd.h>
-#include <filesystem>
 #include <nlohmann/json.hpp>
+#include <filesystem>
 namespace fs = std::filesystem;
 
 #include <Logger/Logger.h>
+#include <utils/utils.h>
 
 std::string get_cwd()
 {
@@ -16,13 +17,10 @@ std::string get_cwd()
   return dir;
 }
 
-int main()
+LogLevel get_level(const std::string &config_path)
 {
-
-  std::string cwd = get_cwd();
-
   LogLevel level;
-  nlohmann::json config = nlohmann::json::parse(std::ifstream(cwd + "/config.json"));
+  nlohmann::json config = nlohmann::json::parse(std::ifstream(config_path));
   if (config.count("log_level"))
   {
     std::string logLevelString = config["log_level"];
@@ -44,10 +42,20 @@ int main()
     }
     else
     {
-      throw("abc");
+      level = DEBUG;
     }
   }
-  Logger logger(cwd + "/log.txt", level);
+  return level;
+}
+
+int main()
+{
+
+  std::string cwd = get_cwd();
+  std::string config_path = cwd + "/config.json";
+  LogLevel level = get_level(config_path);
+
+  Logger logger(cwd + "/log" /*+ DateTimeNow({"%Y-%m-%d"})*/ + ".txt", level);
   logger.log(DEBUG, "Debug message");
   logger.log(INFO, "Info message");
   logger.log(WARNING, "Warning message");

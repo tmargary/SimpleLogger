@@ -55,7 +55,7 @@ int main()
   std::string config_path = cwd + "/config.json";
   LogLevel level = get_level(config_path);
 
-  Logger logger(cwd + "/log" /*+ DateTimeNow({"%Y-%m-%d"})*/ + ".txt", level);
+  Logger logger(cwd + "/log_" + DateTimeNow("%Y_%m_%d") + ".txt", level);
   logger.log(DEBUG, "Debug message");
   logger.log(INFO, "Info message");
   logger.log(WARNING, "Warning message");

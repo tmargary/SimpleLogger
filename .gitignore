@@ -31,6 +31,6 @@
 *.out
 *.app
 
-*.txt
+log*
 /build
 /.cache

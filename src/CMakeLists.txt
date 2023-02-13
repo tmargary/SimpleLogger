@@ -1,0 +1,5 @@
+add_subdirectory(Logger)
+add_subdirectory(utils)
+add_executable(main main.cpp)
+find_package(nlohmann_json CONFIG REQUIRED)
+target_link_libraries(main PRIVATE utils Logger nlohmann_json)

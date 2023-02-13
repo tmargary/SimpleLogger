@@ -1,5 +1,6 @@
 #include <Logger/Logger.h>
-#include <utils.h>
+#include <utils/utils.h>
+#include <iostream>
 
 std::map<LogLevel, std::string> logLevelToString{
     {DEBUG, "DEBUG"},
@@ -22,6 +23,15 @@ void Logger::log(LogLevel messageLevel, const std::string &message)
 {
     if (messageLevel >= level)
     {
-        logFile << "[" << DateTimeNow() << "]" << "[" << logLevelToString[messageLevel] << "]" << ": " << message << std::endl;
-    } 
+        try
+        {
+            logFile << "[" << DateTimeNow() << "]"
+                    << "[" << logLevelToString[messageLevel] << "]"
+                    << ": " << message << std::endl;
+        }
+        catch (const std::ios_base::failure &e)
+        {
+            std::cerr << "Error opening or writing to log file: " << e.what() << std::endl;
+        }
+    }
 }

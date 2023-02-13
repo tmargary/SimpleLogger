@@ -3,7 +3,7 @@
 #include <ctime>
 #include <sstream>
 
-std::string DateTimeNow(const char *format = {"%Y-%m-%d %X"})
+std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 {
   auto now = std::chrono::system_clock::now();
   auto in_time_t = std::chrono::system_clock::to_time_t(now);

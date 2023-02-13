@@ -13,15 +13,16 @@ enum LogLevel
   ERROR,
 };
 
-class Logger {
- public:
+class Logger
+{
+public:
   Logger(const std::string &filePath, LogLevel level);
 
   void log(LogLevel messageLevel, const std::string &message);
 
   ~Logger();
 
- private:
+private:
   std::ofstream logFile;
   std::string filePath;
   LogLevel level;

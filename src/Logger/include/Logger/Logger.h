@@ -25,11 +25,11 @@ public:
   ~Logger();
 
 private:
-  std::string freq; 
-  std::ofstream logFile;
   std::string path;
-  std::string filePath;
+  std::string freq; 
   LogLevel level;
+  std::string filePath;
+  std::ofstream logFile;
 };
 
 #endif

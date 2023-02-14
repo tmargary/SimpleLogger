@@ -1,17 +1,6 @@
-#include <iostream>
-#include <limits.h>
-#include <nlohmann/json.hpp>
 #include <filesystem>
-
-#ifdef _WIN32
-#include <windows.h>
-#define getcwd _getcwd
-#else
-#include <unistd.h>
-#include <libgen.h>
-#endif
-
-namespace fs = std::filesystem;
+#include <iostream>
+#include <nlohmann/json.hpp>
 
 #include <Logger/Logger.h>
 #include <utils/utils.h>
@@ -19,22 +8,14 @@ namespace fs = std::filesystem;
 
 std::string get_cwd()
 {
-  char path[PATH_MAX];
-#ifdef _WIN32
-  char drive[MAX_PATH];
-  char dir[MAX_PATH];
-  char filename[MAX_PATH];
-  char extension[MAX_PATH];
-
-  GetModuleFileName(NULL, path, MAX_PATH);
-  _splitpath_s(path, drive, MAX_PATH, dir, MAX_PATH, filename, MAX_PATH, extension, MAX_PATH);
-
-  return std::string(drive) + std::string(dir);
-#else
-  strncpy(path, __FILE__, sizeof(path));
-  char *dir = dirname(path);
-  return dir;
-#endif
+  std::filesystem::path current_path = std::filesystem::current_path();
+    while (!std::filesystem::exists(current_path / "CMakeLists.txt")) {
+        current_path = current_path.parent_path();
+        if (current_path.empty()) {
+            throw std::runtime_error("Error: could not find project root directory");
+        }
+    }
+    return current_path;
 }
 
 LogLevel get_level(const std::string &config_path)

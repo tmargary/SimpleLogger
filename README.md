@@ -10,6 +10,11 @@ Level based logger implementation in C++
 
 ### Usage
 ```
-Logger logger("log.txt", level);
+std::string freq = "day";
+std::string path = get_cwd();
+std::string config_path = path + "/config.json";
+LogLevel level = get_level(config_path);
+
+Logger logger(path, freq, level);
 logger.log(DEBUG, "Debug message");
 ```

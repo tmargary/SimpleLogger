@@ -16,14 +16,18 @@ enum LogLevel
 class Logger
 {
 public:
-  Logger(const std::string &filePath, LogLevel level);
-
+  Logger(const std::string &path, const std::string &freq, LogLevel level);
   void log(LogLevel messageLevel, const std::string &message);
-
+  std::string get_freq(){return freq;}
+  std::string get_path(){return path;}
+  std::string get_filePath(){return filePath;}
+  LogLevel get_level(){return level;}
   ~Logger();
 
 private:
+  std::string freq; 
   std::ofstream logFile;
+  std::string path;
   std::string filePath;
   LogLevel level;
 };

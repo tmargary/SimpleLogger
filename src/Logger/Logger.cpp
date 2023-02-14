@@ -9,8 +9,48 @@ std::map<LogLevel, std::string> logLevelToString{
     {ERROR, "ERROR"},
 };
 
-Logger::Logger(const std::string &filePath, LogLevel level) : filePath(filePath), level(level)
-{
+Logger::Logger(const std::string &path, const std::string &freq, LogLevel level) : path(path), freq(freq), level(level)
+{   
+
+    std::string name = "/log_", ext = ".txt";
+
+    if (freq == "second")
+    {
+        filePath = path + name + DateTimeNow("%Y_%m_%d_%X") + ext;
+    }
+    else if (freq == "minute")
+    {
+        filePath = path + name + DateTimeNow("%Y_%m_%d_%H_%M") + ext;
+    }
+    else if (freq == "hour")
+    {
+        filePath = path + name + DateTimeNow("%Y_%m_%d_%H") + ext;
+    }
+    else if (freq == "day")
+    {
+        filePath = path + name + DateTimeNow("%Y_%m_%d") + ext;
+    }
+    else if (freq == "week")
+    {
+        filePath = path + name + DateTimeNow("%Y_%U") + ext;
+    }
+    else if (freq == "month")
+    {
+        filePath = path + name + DateTimeNow("%Y_%m") + ext;
+    }
+    else if (freq == "quarter")
+    {
+        filePath = path + name + DateTimeNow("%Y_Q%q") + ext;
+    }
+    else if (freq == "year")
+    {
+        filePath = path + name + DateTimeNow("%Y") + ext;
+    }
+    else
+    {
+        throw std::runtime_error("Error: Unexpected frequency specified: " + freq);
+    }
+
     logFile.open(filePath, std::ios::out | std::ios::app);
 }
 

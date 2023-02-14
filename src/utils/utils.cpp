@@ -2,6 +2,7 @@
 #include <chrono>
 #include <ctime>
 #include <sstream>
+#include <filesystem>
 
 std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 {
@@ -14,4 +15,16 @@ std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
   strftime(buffer, 80, format, &tm);
   ss << buffer;
   return ss.str();
+}
+
+std::string get_cwd()
+{
+    std::filesystem::path current_path = std::filesystem::current_path();
+    while (!std::filesystem::exists(current_path / "CMakeLists.txt")) {
+        current_path = current_path.parent_path();
+        if (current_path.empty()) {
+            throw std::runtime_error("Error: could not find project root directory");
+        }
+    }
+    return current_path.string();
 }

@@ -1,22 +1,8 @@
-#include <filesystem>
-#include <iostream>
 #include <nlohmann/json.hpp>
 
 #include <Logger/Logger.h>
 #include <utils/utils.h>
 
-
-std::string get_cwd()
-{
-    std::filesystem::path current_path = std::filesystem::current_path();
-    while (!std::filesystem::exists(current_path / "CMakeLists.txt")) {
-        current_path = current_path.parent_path();
-        if (current_path.empty()) {
-            throw std::runtime_error("Error: could not find project root directory");
-        }
-    }
-    return current_path.string();
-}
 
 LogLevel get_level(const std::string &config_path)
 {
@@ -51,12 +37,12 @@ LogLevel get_level(const std::string &config_path)
 
 int main()
 {
-
-  std::string cwd = get_cwd();
-  std::string config_path = cwd + "/config.json";
+  std::string freq = "day";
+  std::string path = get_cwd();
+  std::string config_path = path + "/config.json";
   LogLevel level = get_level(config_path);
 
-  Logger logger(cwd + "/log_" + DateTimeNow("%Y_%m_%d") + ".txt", level);
+  Logger logger(path, freq, level);
   logger.log(DEBUG, "Debug message");
   logger.log(INFO, "Info message");
   logger.log(WARNING, "Warning message");

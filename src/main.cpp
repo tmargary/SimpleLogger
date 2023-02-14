@@ -8,14 +8,14 @@
 
 std::string get_cwd()
 {
-  std::filesystem::path current_path = std::filesystem::current_path();
+    std::filesystem::path current_path = std::filesystem::current_path();
     while (!std::filesystem::exists(current_path / "CMakeLists.txt")) {
         current_path = current_path.parent_path();
         if (current_path.empty()) {
             throw std::runtime_error("Error: could not find project root directory");
         }
     }
-    return current_path;
+    return current_path.string();
 }
 
 LogLevel get_level(const std::string &config_path)

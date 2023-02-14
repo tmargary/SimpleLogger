@@ -6,7 +6,7 @@
 
 LogLevel get_level(const std::string &config_path)
 {
-  LogLevel level;
+  LogLevel level = DEBUG;
   nlohmann::json config = nlohmann::json::parse(std::ifstream(config_path));
   if (config.count("log_level"))
   {
@@ -26,10 +26,6 @@ LogLevel get_level(const std::string &config_path)
     else if (logLevelString == "ERROR")
     {
       level = ERROR;
-    }
-    else
-    {
-      level = DEBUG;
     }
   }
   return level;

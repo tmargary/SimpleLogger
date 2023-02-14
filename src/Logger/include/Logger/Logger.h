@@ -27,7 +27,7 @@ public:
 private:
   std::string path;
   std::string freq; 
-  LogLevel level = DEBUG;
+  LogLevel level;
   std::string filePath;
   std::ofstream logFile;
 };

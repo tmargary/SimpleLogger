@@ -47,3 +47,7 @@ jobs:
           rm -rf ../vcpkg/buildtrees
           rm -rf ../vcpkg/downloads
           cmake --build . --config ${{ matrix.build-type }} --parallel $(nproc)
+      - name: Unit Tests
+        working-directory: ./make
+        run: |
+          ctest -j$(nproc) --build-config ${{ matrix.build-type }}

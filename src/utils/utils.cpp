@@ -8,7 +8,8 @@ std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 {
   auto now = std::chrono::system_clock::now();
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  std::tm tm = *std::localtime(&in_time_t);
+  std::tm tm;
+  localtime_r(&in_time_t, &tm);
 
   std::stringstream ss;
   char buffer[80];

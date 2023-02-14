@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_COMPILER /usr/bin/g++)
-
 enable_testing()
 
+# Add the source files directory
 add_subdirectory(src)
+# Add the test files directory
 add_subdirectory(tests)

@@ -2,7 +2,7 @@
 #include <utils/utils.h>
 #include <iostream>
 
-std::map<LogLevel, std::string> logLevelToString{
+std::map<LogLevel, std::string> const logLevelToString{
     {DEBUG, "DEBUG"},
     {INFO, "INFO"},
     {WARNING, "WARNING"},
@@ -66,7 +66,7 @@ void Logger::log(LogLevel messageLevel, const std::string &message)
         try
         {
             logFile << "[" << DateTimeNow() << "]"
-                    << "[" << logLevelToString[messageLevel] << "]"
+                    << "[" << logLevelToString.at(messageLevel) << "]"
                     << ": " << message << std::endl;
         }
         catch (const std::ios_base::failure &e)

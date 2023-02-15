@@ -1,4 +1,5 @@
 #include <iostream>
+#include <array>
 #include <chrono>
 #include <ctime>
 #include <sstream>
@@ -6,9 +7,10 @@
 
 std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 {
+    const int kBufferSize = 80;
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
-    std::tm tm;
+    std::tm tm {};
 
 #ifdef _WIN32
     localtime_s(&tm, &in_time_t);
@@ -17,9 +19,9 @@ std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 #endif
 
     std::stringstream ss;
-    char buffer[80];
-    strftime(buffer, 80, format, &tm);
-    ss << buffer;
+    std::array<char, kBufferSize> buffer{};
+    strftime(buffer.data(), kBufferSize, format, &tm);
+    ss << buffer.data();
     return ss.str();
 }
 

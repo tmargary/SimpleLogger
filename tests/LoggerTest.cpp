@@ -3,6 +3,7 @@
 #include <utils/utils.h>
 #include <cstring>
 #include <fstream>
+#include <array>
 #include <iostream>
 
 // Test that the constructor creates a log file with the correct path and extension
@@ -68,7 +69,7 @@ TEST(LoggerTest, TestLogLevels)
     std::ifstream file(filePath);
     std::string lastLine, line;
 
-    LogLevel logLevels[] = {DEBUG, INFO, WARNING, ERROR};
+    std::array<LogLevel, 4> logLevels = {DEBUG, INFO, WARNING, ERROR};
     std::map<LogLevel, std::string> logLevelToString{
         {DEBUG, "DEBUG"},
         {INFO, "INFO"},

@@ -1,5 +1,5 @@
 {
-    "name": "sqrt-tests",
+    "name": "simple-logger",
     "version": "0.0.0",
     "builtin-baseline": "43235cf746cddb4981a8ef4abdb80aafe4d4e0e2",
     "dependencies": [

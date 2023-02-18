@@ -34,7 +34,7 @@ LogLevel get_level(const std::string &config_path)
 int main()
 {
   std::string freq = "day";
-  std::string path = get_cwd();
+  std::string path = getCwd();
   std::string config_path = path + "/config.json";
   LogLevel level = get_level(config_path);
 

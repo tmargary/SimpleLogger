@@ -16,35 +16,35 @@ Logger::Logger(const std::string &path, const std::string &freq, LogLevel level)
 
     if (freq == "second")
     {
-        filePath = path + name + DateTimeNow("%Y_%m_%d_%X") + ext;
+        filePath = path + name + dateTimeNow("%Y_%m_%d_%X") + ext;
     }
     else if (freq == "minute")
     {
-        filePath = path + name + DateTimeNow("%Y_%m_%d_%H_%M") + ext;
+        filePath = path + name + dateTimeNow("%Y_%m_%d_%H_%M") + ext;
     }
     else if (freq == "hour")
     {
-        filePath = path + name + DateTimeNow("%Y_%m_%d_%H") + ext;
+        filePath = path + name + dateTimeNow("%Y_%m_%d_%H") + ext;
     }
     else if (freq == "day")
     {
-        filePath = path + name + DateTimeNow("%Y_%m_%d") + ext;
+        filePath = path + name + dateTimeNow("%Y_%m_%d") + ext;
     }
     else if (freq == "week")
     {
-        filePath = path + name + DateTimeNow("%Y_%U") + ext;
+        filePath = path + name + dateTimeNow("%Y_%U") + ext;
     }
     else if (freq == "month")
     {
-        filePath = path + name + DateTimeNow("%Y_%m") + ext;
+        filePath = path + name + dateTimeNow("%Y_%m") + ext;
     }
     else if (freq == "quarter")
     {
-        filePath = path + name + DateTimeNow("%Y_Q%q") + ext;
+        filePath = path + name + dateTimeNow("%Y_Q%q") + ext;
     }
     else if (freq == "year")
     {
-        filePath = path + name + DateTimeNow("%Y") + ext;
+        filePath = path + name + dateTimeNow("%Y") + ext;
     }
     else
     {
@@ -65,7 +65,7 @@ void Logger::log(LogLevel messageLevel, const std::string &message)
     {
         try
         {
-            logFile << "[" << DateTimeNow() << "]"
+            logFile << "[" << dateTimeNow() << "]"
                     << "[" << logLevelToString.at(messageLevel) << "]"
                     << ": " << message << std::endl;
         }

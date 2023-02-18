@@ -3,7 +3,7 @@
 
 #include <string>
 
-std::string DateTimeNow(const char *format = "%Y-%m-%d %X");
-std::string get_cwd();
+std::string dateTimeNow(const char *format = "%Y-%m-%d %X");
+std::string getCwd();
 
 #endif

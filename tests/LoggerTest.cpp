@@ -9,19 +9,19 @@
 // Test that the constructor creates a log file with the correct path and extension
 TEST(LoggerTest, CorrectPathAndExtension)
 {
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "day";
     LogLevel level = LogLevel::INFO;
     Logger logger(path, freq, level);
 
-    std::string expectedFilePath = path + "/log_" + DateTimeNow("%Y_%m_%d") + ".txt";
+    std::string expectedFilePath = path + "/log_" + dateTimeNow("%Y_%m_%d") + ".txt";
     EXPECT_EQ(logger.get_filePath(), expectedFilePath);
 }
 
 // Test that the constructor throws an exception for an unexpected frequency
 TEST(LoggerTest, ThrowsExceptionForUnexpectedFrequency)
 {
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "unexpected";
     LogLevel level = LogLevel::INFO;
 
@@ -31,7 +31,7 @@ TEST(LoggerTest, ThrowsExceptionForUnexpectedFrequency)
 // Test that the constructor sets the log level correctly
 TEST(LoggerTest, LogLevelIsSet)
 {
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "day";
     LogLevel level = LogLevel::ERROR;
     Logger logger(path, freq, level);
@@ -42,13 +42,13 @@ TEST(LoggerTest, LogLevelIsSet)
 TEST(LoggerTest, TestConstructor)
 {
     // Testing Logger Constructor
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "day";
     LogLevel level = LogLevel::INFO;
     Logger logger(path, freq, level);
 
     std::string name = "/log_", ext = ".txt";
-    std::string filePath = path + name + DateTimeNow("%Y_%m_%d") + ext;
+    std::string filePath = path + name + dateTimeNow("%Y_%m_%d") + ext;
 
     std::ifstream file(filePath);
     EXPECT_TRUE(file.good());
@@ -58,13 +58,13 @@ TEST(LoggerTest, TestConstructor)
 TEST(LoggerTest, TestLogLevels)
 {
     // Lowest level: DEBUG; In a loop we add different messages and expect the last line to contain that message.
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "day";
     LogLevel level = LogLevel::DEBUG;
     Logger logger(path, freq, level);
 
     std::string name = "/log_", ext = ".txt";
-    std::string filePath = path + name + DateTimeNow("%Y_%m_%d") + ext;
+    std::string filePath = path + name + dateTimeNow("%Y_%m_%d") + ext;
 
     std::ifstream file(filePath);
     std::string lastLine, line;
@@ -98,7 +98,7 @@ TEST(LoggerTest, TestLogLevels)
 TEST(LoggerTest, TestLogLevel)
 {
     // Lowest level: WARNING; Then we try to log a DEBUG message which shouldn't make it to the log file. So we expect false.
-    std::string path = get_cwd();
+    std::string path = getCwd();
     std::string freq = "day";
     LogLevel level = LogLevel::WARNING;
     Logger logger(path, freq, level);

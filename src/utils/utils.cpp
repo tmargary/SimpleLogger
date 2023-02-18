@@ -5,7 +5,7 @@
 #include <sstream>
 #include <filesystem>
 
-std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
+std::string dateTimeNow(const char *format = "%Y-%m-%d %X")
 {
     const int kBufferSize = 80;
     auto now = std::chrono::system_clock::now();
@@ -17,7 +17,6 @@ std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
 #else
     localtime_r(&in_time_t, &tm);
 #endif
-
     std::stringstream ss;
     std::array<char, kBufferSize> buffer{};
     strftime(buffer.data(), kBufferSize, format, &tm);
@@ -25,7 +24,7 @@ std::string DateTimeNow(const char *format = "%Y-%m-%d %X")
     return ss.str();
 }
 
-std::string get_cwd()
+std::string getCwd()
 {
     std::filesystem::path current_path = std::filesystem::current_path();
     while (!std::filesystem::exists(current_path / "CMakeLists.txt"))

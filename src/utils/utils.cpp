@@ -13,7 +13,7 @@ std::string dateTimeNow(const char *format = "%Y-%m-%d %X")
     std::tm tm {};
 
 #ifdef _WIN32
-    localtime_s(&tm, &in_time_t);
+    localtime_s(&tm, &inTimeT);
 #else
     localtime_r(&inTimeT, &tm);
 #endif

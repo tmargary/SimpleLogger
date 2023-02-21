@@ -1,5 +1,5 @@
 # SimpleLogger
-Level based logger implementation in C++
+Level based and thread-safe logger implementation in C++
 
 ### Installation
 1. `git clone https://github.com/tmargary/SimpleLogger`

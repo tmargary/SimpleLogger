@@ -49,8 +49,6 @@ int main()
 }
 */
 
-
-
 int main() {
     std::string freq = "day";
     std::string path = getCwd();

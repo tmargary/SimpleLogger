@@ -1,7 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <map>
+#include <mutex>
 #include <string>
 #include <fstream>
 
@@ -30,6 +30,7 @@ private:
   LogLevel level;
   std::string filePath;
   std::ofstream logFile;
+  std::mutex mutex_;
 };
 
 #endif

@@ -9,13 +9,13 @@ std::string dateTimeNow(const char *format = "%Y-%m-%d %X")
 {
     const int kBufferSize = 80;
     auto now = std::chrono::system_clock::now();
-    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    auto inTimeT = std::chrono::system_clock::to_time_t(now);
     std::tm tm {};
 
 #ifdef _WIN32
     localtime_s(&tm, &in_time_t);
 #else
-    localtime_r(&in_time_t, &tm);
+    localtime_r(&inTimeT, &tm);
 #endif
     std::stringstream ss;
     std::array<char, kBufferSize> buffer{};

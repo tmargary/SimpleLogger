@@ -1,6 +1,9 @@
+#include <map>
+#include <mutex>
+#include <iostream>
+
 #include <Logger/Logger.h>
 #include <utils/utils.h>
-#include <iostream>
 
 std::map<LogLevel, std::string> const logLevelToString{
     {DEBUG, "DEBUG"},
@@ -51,12 +54,11 @@ Logger::Logger(const std::string &path, const std::string &freq, LogLevel level)
         throw std::runtime_error("Error: Unexpected frequency specified: " + freq);
     }
 
-    logFile.open(filePath, std::ios::out | std::ios::app);
+    logFile.open(filePath, std::ios::app);
 }
 
 Logger::~Logger()
 {
-    logFile.close();
 }
 
 void Logger::log(LogLevel messageLevel, const std::string &message)
@@ -65,6 +67,7 @@ void Logger::log(LogLevel messageLevel, const std::string &message)
     {
         try
         {
+            std::lock_guard<std::mutex> lock(mutex_);
             logFile << "[" << dateTimeNow() << "]"
                     << "[" << logLevelToString.at(messageLevel) << "]"
                     << ": " << message << std::endl;

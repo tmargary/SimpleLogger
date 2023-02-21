@@ -49,7 +49,18 @@ int main()
 }
 */
 
-int main() {
+// Function to be executed by the thread
+void thread_func(Logger& logger, int i, int level_cnt)
+{
+    std::string message = "Thread " + std::to_string(i) + " error message";
+    logger.log(static_cast<LogLevel>(i % level_cnt), message);
+}
+
+int main()
+{
+    const int level_cnt = 4;
+    const int loop_cnt = 10;
+
     std::string freq = "day";
     std::string path = getCwd();
     std::string config_path = path + "/config.json";
@@ -58,14 +69,9 @@ int main() {
     Logger logger(path, freq, level);
     std::vector<std::thread> threads;
 
-    const int loop_cnt = 10;
-    const int level_cnt = 4;
-    for (int i = 0; i < loop_cnt; i++) 
+    for (int i = 0; i < loop_cnt; i++)
     {
-        threads.emplace_back([&logger, i, level_cnt] {
-            std::string message = "Thread " + std::to_string(i) + " error message";
-            logger.log(static_cast<LogLevel>(i % level_cnt), message);
-        });
+        threads.emplace_back(thread_func, std::ref(logger), i, level_cnt);
     }
 
     for (auto& thread : threads) {

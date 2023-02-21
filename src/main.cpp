@@ -62,7 +62,7 @@ int main() {
     const int level_cnt = 4;
     for (int i = 0; i < loop_cnt; i++) 
     {
-        threads.emplace_back([&logger, i] {
+        threads.emplace_back([&logger, i, level_cnt] {
             std::string message = "Thread " + std::to_string(i) + " error message";
             logger.log(static_cast<LogLevel>(i % level_cnt), message);
         });
